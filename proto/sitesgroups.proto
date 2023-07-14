@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package sitegroups;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message SiteGroup {
+    string id = 1;
+    string siteGroupName = 2;
+    string siteGroupId = 3;
+    string parentSiteGroupId = 4;
+    google.protobuf.Timestamp dateCreated = 5;
+}
+message SiteGroupRequest {
+    string id = 1;
+}
+
+service SiteGroups {
+    rpc CreateSiteGroup(stream SiteGroup) returns (google.protobuf.Empty) {}
+    rpc GetSiteGroups(google.protobuf.Empty) returns (stream SiteGroup) {};
+    rpc GetSiteGroup(SiteGroupRequest) returns (SiteGroup) {};
+}

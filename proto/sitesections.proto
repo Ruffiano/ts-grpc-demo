@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package sitesections;
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+message AppName {
+    string appNameId = 1;
+    string name = 2;
+}
+
+message DeviceType {
+    string deviceId = 1;
+    string deviceName = 2;
+}
+
+message Channel {
+    string channelId = 1;
+    string name = 2;
+}
+
+
+message SiteSection {
+    string id = 1;
+    string siteSectionName = 2;
+    AppName appname = 3;
+    DeviceType device = 4;
+    Channel channel = 5;
+    string siteSectionId = 6;
+    string siteId = 7;
+    google.protobuf.Timestamp dateCreated = 8;
+}
+message SiteSectionRequest {
+    string id = 1;
+}
+
+service SiteSections {
+    rpc CreateSiteSection(stream SiteSection) returns (google.protobuf.Empty) {}
+    rpc GetSiteSections(google.protobuf.Empty) returns (stream SiteSection) {};
+    rpc GetSiteSection(SiteSectionRequest) returns (SiteSection) {};
+}

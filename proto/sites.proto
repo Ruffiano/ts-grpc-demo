@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package sites;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+message DeviceType {
+    string deviceId = 1;
+    string deviceName = 2;
+}
+
+message Site {
+    string id = 1;
+    string siteName = 2;
+    DeviceType device = 3;
+    string siteId = 4;
+    google.protobuf.Timestamp dateCreated = 5;
+}
+message SiteRequest {
+    string id = 1;
+}
+
+service Sites {
+    rpc CreateSite(stream Site) returns (google.protobuf.Empty) {}
+    rpc GetSites(google.protobuf.Empty) returns (stream Site) {};
+    rpc GetSite(SiteRequest) returns (Site) {};
+}
